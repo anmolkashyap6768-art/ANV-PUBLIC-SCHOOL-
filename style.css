@@ -1,0 +1,1181 @@
+
+/* =====================================================
+   ANV PUBLIC SCHOOL — PREMIUM 3D MOTION UI
+   Version 2.0 | Responsive | Vanilla CSS
+   ===================================================== */
+
+:root {
+  --navy: #0b1535;
+  --navy-2: #142958;
+  --blue: #315ee8;
+  --blue-2: #6385ff;
+  --cyan: #42d8f5;
+  --gold: #f2c66d;
+  --purple: #8258e8;
+  --green: #16a879;
+  --red: #e34f69;
+
+  --bg: #f2f5fc;
+  --surface: #ffffff;
+  --surface-2: #f8faff;
+  --text: #182440;
+  --muted: #74809a;
+  --border: #e2e8f5;
+
+  --radius: 20px;
+  --radius-sm: 12px;
+
+  --shadow-sm:
+    0 5px 15px rgba(24, 43, 87, 0.06);
+
+  --shadow-md:
+    0 12px 30px rgba(24, 43, 87, 0.09);
+
+  --shadow-3d:
+    0 18px 0 rgba(21, 48, 102, 0.05),
+    0 25px 45px rgba(21, 48, 102, 0.12);
+
+  --transition: 220ms cubic-bezier(.2, .8, .2, 1);
+}
+
+/* =====================================================
+   RESET
+   ===================================================== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  min-height: 100%;
+  scroll-behavior: smooth;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  overflow-x: hidden;
+  color: var(--text);
+  background:
+    radial-gradient(
+      ellipse at 5% 0%,
+      rgba(99, 133, 255, 0.12),
+      transparent 34%
+    ),
+    radial-gradient(
+      ellipse at 95% 10%,
+      rgba(66, 216, 245, 0.08),
+      transparent 30%
+    ),
+    linear-gradient(145deg, #f7f9ff, #edf2fc);
+
+  font-family:
+    Inter,
+    "Segoe UI",
+    Roboto,
+    Arial,
+    sans-serif;
+
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+button {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button,
+a,
+input,
+select,
+textarea {
+  transition:
+    background-color var(--transition),
+    border-color var(--transition),
+    box-shadow var(--transition),
+    transform var(--transition),
+    color var(--transition);
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid rgba(49, 94, 232, 0.3);
+  outline-offset: 3px;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+::selection {
+  color: #0b1535;
+  background: #cddaff;
+}
+
+/* =====================================================
+   APPLICATION BACKGROUND
+   ===================================================== */
+
+#app,
+#anvJsApp {
+  position: relative;
+  min-height: 100vh;
+  isolation: isolate;
+}
+
+#app::before,
+#anvJsApp::before {
+  content: "";
+  position: fixed;
+  inset: auto auto -150px -150px;
+  z-index: -1;
+  width: 330px;
+  height: 330px;
+  border-radius: 50%;
+  pointer-events: none;
+  background: radial-gradient(
+    circle,
+    rgba(49, 94, 232, 0.10),
+    transparent 70%
+  );
+  animation: anvOrbFloat 11s ease-in-out infinite alternate;
+}
+
+#app::after,
+#anvJsApp::after {
+  content: "";
+  position: fixed;
+  inset: -170px -150px auto auto;
+  z-index: -1;
+  width: 350px;
+  height: 350px;
+  border-radius: 50%;
+  pointer-events: none;
+  background: radial-gradient(
+    circle,
+    rgba(130, 88, 232, 0.09),
+    transparent 70%
+  );
+  animation: anvOrbFloat 14s ease-in-out infinite alternate-reverse;
+}
+
+/* =====================================================
+   SCHOOL HEADER — 3D GLASS
+   ===================================================== */
+
+.anv-header {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: 27px 25px;
+  margin: 12px 0 22px;
+
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.19);
+  border-radius: 24px;
+
+  background:
+    radial-gradient(
+      circle at 85% 10%,
+      rgba(99, 133, 255, 0.38),
+      transparent 33%
+    ),
+    radial-gradient(
+      circle at 15% 100%,
+      rgba(66, 216, 245, 0.15),
+      transparent 36%
+    ),
+    linear-gradient(
+      130deg,
+      #0b1535 0%,
+      #142958 50%,
+      #244c9d 100%
+    );
+
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.16),
+    0 10px 0 rgba(14, 34, 80, 0.04),
+    0 20px 42px rgba(17, 42, 95, 0.19);
+
+  transform: perspective(1000px) rotateX(0deg);
+  animation: anvHeaderEnter 650ms cubic-bezier(.2, .8, .2, 1) both;
+}
+
+.anv-header::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: -85%;
+  right: -8%;
+  width: 280px;
+  height: 280px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 50%;
+  box-shadow:
+    0 0 0 25px rgba(255, 255, 255, 0.025),
+    0 0 0 55px rgba(255, 255, 255, 0.02);
+  pointer-events: none;
+  animation: anvOrbit 18s linear infinite;
+}
+
+.anv-header::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -130%;
+  width: 75%;
+  height: 100%;
+  pointer-events: none;
+
+  background: linear-gradient(
+    105deg,
+    transparent,
+    rgba(255, 255, 255, 0.10),
+    transparent
+  );
+
+  transform: skewX(-18deg);
+  animation: anvShine 7s ease-in-out infinite;
+}
+
+.anv-header h1 {
+  position: relative;
+  margin: 0 0 5px;
+  color: #fff;
+  font-size: clamp(23px, 4vw, 32px);
+  line-height: 1.25;
+  font-weight: 850;
+  letter-spacing: -0.7px;
+  text-shadow: 0 3px 15px rgba(0, 0, 0, 0.16);
+}
+
+.anv-header p {
+  position: relative;
+  margin: 0;
+  color: #d6e4ff;
+  font-size: 13px;
+  letter-spacing: 0.5px;
+}
+
+/* =====================================================
+   NAVIGATION — FLOATING PILLS
+   ===================================================== */
+
+.anv-nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 9px;
+
+  margin: 0 0 23px;
+  padding: 7px;
+
+  border: 1px solid rgba(255, 255, 255, 0.95);
+  border-radius: 17px;
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+
+  box-shadow:
+    0 5px 20px rgba(26, 48, 95, 0.05),
+    inset 0 1px 0 #fff;
+}
+
+.anv-nav button {
+  position: relative;
+  flex: 0 0 auto;
+  overflow: hidden;
+
+  min-height: 41px;
+  padding: 10px 15px;
+
+  color: #44516e;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 11px;
+
+  font-size: 12px;
+  font-weight: 750;
+  cursor: pointer;
+}
+
+.anv-nav button::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 0;
+  height: 2px;
+  background: var(--blue-2);
+  transform: translateX(-50%);
+  transition: width var(--transition);
+}
+
+.anv-nav button:hover {
+  color: var(--blue);
+  background: #edf2ff;
+  transform: translateY(-2px);
+}
+
+.anv-nav button:hover::after {
+  width: 45%;
+}
+
+.anv-nav button.active {
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.18);
+
+  background: linear-gradient(
+    135deg,
+    #315ee8,
+    #2145b4
+  );
+
+  box-shadow:
+    0 5px 0 #1a368f,
+    0 9px 16px rgba(49, 94, 232, 0.22);
+
+  transform: translateY(-2px);
+}
+
+.anv-nav button.active::after {
+  display: none;
+}
+
+.anv-nav button:active {
+  transform: translateY(1px) scale(0.98);
+  box-shadow: none;
+}
+
+/* =====================================================
+   PAGE HEADINGS
+   ===================================================== */
+
+#anvJsApp > h2,
+#app > h2 {
+  position: relative;
+  margin: 0 0 18px;
+  padding-left: 13px;
+
+  color: var(--navy);
+  font-size: clamp(21px, 3vw, 27px);
+  line-height: 1.35;
+  font-weight: 850;
+  letter-spacing: -0.5px;
+
+  animation: anvFadeUp 450ms ease both;
+}
+
+#anvJsApp > h2::before,
+#app > h2::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 3px;
+  bottom: 3px;
+  width: 4px;
+  border-radius: 20px;
+  background: linear-gradient(
+    180deg,
+    var(--blue-2),
+    var(--cyan)
+  );
+  box-shadow: 0 0 12px rgba(49, 94, 232, 0.25);
+}
+
+/* =====================================================
+   3D CARDS
+   ===================================================== */
+
+.anv-card {
+  position: relative;
+  min-width: 0;
+  overflow: hidden;
+
+  padding: 19px;
+  margin: 0 0 17px;
+
+  border: 1px solid rgba(224, 232, 246, 0.9);
+  border-radius: var(--radius);
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255, 255, 255, 0.99),
+      rgba(249, 251, 255, 0.95)
+    );
+
+  box-shadow:
+    0 5px 0 rgba(24, 43, 87, 0.025),
+    0 9px 24px rgba(24, 43, 87, 0.055),
+    inset 0 1px 0 rgba(255, 255, 255, 0.95);
+
+  transform: translateY(0);
+  transition:
+    transform 260ms cubic-bezier(.2, .8, .2, 1),
+    box-shadow 260ms ease,
+    border-color 260ms ease;
+
+  animation: anvCardEnter 450ms ease both;
+}
+
+.anv-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 65px;
+  height: 3px;
+  border-radius: 0 0 8px 0;
+  background: linear-gradient(90deg, var(--blue), var(--cyan));
+  opacity: 0.8;
+}
+
+.anv-card:hover {
+  border-color: #d1ddf6;
+  transform: translateY(-4px);
+
+  box-shadow:
+    0 7px 0 rgba(24, 43, 87, 0.025),
+    0 17px 32px rgba(24, 43, 87, 0.09),
+    inset 0 1px 0 #fff;
+}
+
+.anv-card h3 {
+  margin: 0 0 16px;
+  color: var(--navy);
+  font-size: 17px;
+  line-height: 1.4;
+  font-weight: 800;
+}
+
+.anv-card p {
+  overflow-wrap: anywhere;
+}
+
+.anv-card .anv-small {
+  color: var(--muted);
+}
+
+/* =====================================================
+   DASHBOARD STAT CARDS
+   ===================================================== */
+
+.anv-stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 15px;
+  margin-bottom: 19px;
+}
+
+.anv-stat {
+  position: relative;
+  min-width: 0;
+  min-height: 133px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 20px;
+
+  border-radius: 19px;
+  background: linear-gradient(145deg, #fff, #f6f8ff);
+}
+
+.anv-stat:nth-child(4n + 1) {
+  --stat-accent: #315ee8;
+}
+
+.anv-stat:nth-child(4n + 2) {
+  --stat-accent: #16a879;
+}
+
+.anv-stat:nth-child(4n + 3) {
+  --stat-accent: #8258e8;
+}
+
+.anv-stat:nth-child(4n + 4) {
+  --stat-accent: #d99125;
+}
+
+.anv-stat::before {
+  content: "";
+  position: absolute;
+  top: 17px;
+  right: 17px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--stat-accent, var(--blue));
+  box-shadow: 0 0 0 5px color-mix(
+    in srgb,
+    var(--stat-accent, var(--blue)) 12%,
+    transparent
+  );
+}
+
+.anv-stat > span {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 750;
+  letter-spacing: 0.3px;
+}
+
+.anv-stat strong {
+  display: block;
+  margin-top: 11px;
+  color: var(--stat-accent, var(--blue));
+  font-size: clamp(23px, 3vw, 31px);
+  font-weight: 900;
+  line-height: 1.2;
+  overflow-wrap: anywhere;
+  font-variant-numeric: tabular-nums;
+  text-shadow: 0 2px 12px rgba(49, 94, 232, 0.07);
+  animation: anvNumberEnter 550ms ease both;
+}
+
+.anv-stat:hover strong {
+  transform: scale(1.035);
+  transform-origin: left center;
+}
+
+/* =====================================================
+   BUTTONS — 3D PRESS EFFECT
+   ===================================================== */
+
+#anvJsApp button,
+#app button {
+  -webkit-appearance: none;
+  appearance: none;
+  position: relative;
+
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  border-radius: 11px;
+
+  padding: 10px 14px;
+
+  color: #fff;
+  background: linear-gradient(
+    135deg,
+    #3867ed,
+    #244bc2
+  );
+
+  box-shadow:
+    0 4px 0 #1b399b,
+    0 7px 13px rgba(49, 94, 232, 0.15);
+
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 1.45;
+
+  cursor: pointer;
+  transform: translateY(0);
+  transition:
+    transform 140ms ease,
+    box-shadow 140ms ease,
+    filter 180ms ease;
+}
+
+#anvJsApp button:hover,
+#app button:hover {
+  filter: brightness(1.06);
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 6px 0 #1b399b,
+    0 11px 18px rgba(49, 94, 232, 0.2);
+}
+
+#anvJsApp button:active,
+#app button:active {
+  transform: translateY(3px);
+  box-shadow: 0 1px 0 #1b399b;
+}
+
+#anvJsApp button:disabled,
+#app button:disabled {
+  transform: none;
+  box-shadow: none;
+  filter: grayscale(0.25);
+}
+
+#anvJsApp .anv-secondary,
+#app .anv-secondary {
+  color: #24428b;
+  border-color: #d9e3fa;
+  background: linear-gradient(145deg, #fff, #eaf0ff);
+  box-shadow:
+    0 3px 0 #d5e0f8,
+    0 5px 10px rgba(32, 57, 110, 0.05);
+}
+
+#anvJsApp .anv-secondary:hover,
+#app .anv-secondary:hover {
+  box-shadow:
+    0 5px 0 #d5e0f8,
+    0 9px 16px rgba(32, 57, 110, 0.1);
+}
+
+#anvJsApp .anv-danger,
+#app .anv-danger {
+  color: #fff;
+  background: linear-gradient(135deg, #ec5d72, #c93450);
+  box-shadow:
+    0 4px 0 #a92840,
+    0 7px 12px rgba(201, 52, 80, 0.14);
+}
+
+/* =====================================================
+   ROWS AND ACTION TOOLBARS
+   ===================================================== */
+
+.anv-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 11px;
+  min-width: 0;
+}
+
+.anv-row > input {
+  flex: 1 1 220px;
+}
+
+.anv-row > button {
+  flex: 0 0 auto;
+}
+
+/* =====================================================
+   FORMS — MODERN FIELDS
+   ===================================================== */
+
+.anv-form {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 15px;
+}
+
+.anv-field {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 7px;
+  min-width: 0;
+}
+
+.anv-field > span,
+.anv-field > label,
+.anv-field {
+  color: var(--text);
+}
+
+.anv-field input,
+.anv-field select,
+.anv-field textarea {
+  width: 100%;
+  min-width: 0;
+}
+
+#anvJsApp input,
+#anvJsApp select,
+#anvJsApp textarea,
+#app input,
+#app select,
+#app textarea {
+  min-height: 43px;
+  padding: 11px 12px;
+
+  color: var(--text);
+  border: 1px solid #dce4f2;
+  border-radius: 11px;
+  background: linear-gradient(145deg, #fff, #fbfcff);
+
+  box-shadow:
+    inset 0 2px 4px rgba(28, 48, 86, 0.025),
+    0 1px 0 #fff;
+
+  outline: none;
+}
+
+#anvJsApp input::placeholder,
+#anvJsApp textarea::placeholder,
+#app input::placeholder,
+#app textarea::placeholder {
+  color: #9aa6ba;
+}
+
+#anvJsApp input:hover,
+#anvJsApp select:hover,
+#anvJsApp textarea:hover,
+#app input:hover,
+#app select:hover,
+#app textarea:hover {
+  border-color: #b8c8ed;
+}
+
+#anvJsApp input:focus,
+#anvJsApp select:focus,
+#anvJsApp textarea:focus,
+#app input:focus,
+#app select:focus,
+#app textarea:focus {
+  border-color: #6687ef;
+  background: #fff;
+  box-shadow:
+    0 0 0 4px rgba(49, 94, 232, 0.09),
+    0 4px 12px rgba(49, 94, 232, 0.05);
+}
+
+#anvJsApp textarea,
+#app textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+/* =====================================================
+   TABLES
+   ===================================================== */
+
+.anv-table-wrap {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+
+  border: 1px solid var(--border);
+  border-radius: 13px;
+  background: #fff;
+
+  scrollbar-width: thin;
+  -webkit-overflow-scrolling: touch;
+}
+
+#anvJsApp table,
+#app table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: #fff;
+  font-size: 12px;
+}
+
+#anvJsApp th,
+#anvJsApp td,
+#app th,
+#app td {
+  padding: 13px 12px;
+  text-align: left;
+  vertical-align: middle;
+  border-bottom: 1px solid #edf1f8;
+}
+
+#anvJsApp th,
+#app th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+
+  color: #304368;
+  background: linear-gradient(180deg, #f7f9ff, #edf2fc);
+  font-size: 11px;
+  font-weight: 850;
+  letter-spacing: 0.35px;
+  white-space: nowrap;
+}
+
+#anvJsApp tbody tr,
+#app tbody tr {
+  transition: background-color 150ms ease;
+}
+
+#anvJsApp tbody tr:hover,
+#app tbody tr:hover {
+  background: #f4f7ff;
+}
+
+#anvJsApp tbody tr:last-child td,
+#app tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+#anvJsApp td button,
+#app td button {
+  margin: 2px;
+}
+
+/* =====================================================
+   EMPTY STATES
+   ===================================================== */
+
+.anv-empty {
+  padding: 28px 16px;
+  text-align: center;
+  color: var(--muted);
+  border: 1px dashed #d8e1f2;
+  border-radius: 14px;
+  background:
+    radial-gradient(
+      circle at center,
+      #f5f8ff,
+      #fff 72%
+    );
+}
+
+/* =====================================================
+   HELPER TEXT AND FOOTERS
+   ===================================================== */
+
+.anv-small {
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.65;
+}
+
+#anvJsApp footer,
+#app footer {
+  padding: 17px 4px;
+  color: var(--muted);
+  text-align: center;
+  font-size: 11px;
+}
+
+/* =====================================================
+   TOAST / NOTICE ANIMATION
+   ===================================================== */
+
+#anvNotice {
+  position: fixed;
+  left: 50%;
+  bottom: max(20px, env(safe-area-inset-bottom));
+  z-index: 99999;
+
+  width: max-content;
+  max-width: calc(100vw - 30px);
+
+  padding: 13px 19px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 14px;
+
+  color: #fff;
+  background: linear-gradient(135deg, #172c5c, #244c9d);
+
+  box-shadow:
+    0 7px 0 rgba(8, 20, 48, 0.1),
+    0 15px 40px rgba(11, 21, 53, 0.25);
+
+  font-size: 13px;
+  font-weight: 700;
+
+  transform: translate(-50%, 20px);
+  animation: anvToastIn 300ms cubic-bezier(.2, .8, .2, 1) forwards;
+}
+
+/* =====================================================
+   LOADING SCREEN FROM INDEX.HTML
+   ===================================================== */
+
+#loadingScreen {
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.loader-logo {
+  transform-style: preserve-3d;
+  box-shadow:
+    0 15px 40px rgba(0, 0, 0, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.28);
+}
+
+/* =====================================================
+   ANIMATIONS
+   ===================================================== */
+
+@keyframes anvOrbFloat {
+  from {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  to {
+    transform: translate3d(30px, -25px, 0) scale(1.12);
+  }
+}
+
+@keyframes anvOrbit {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes anvShine {
+  0%, 60% {
+    left: -130%;
+  }
+  85%, 100% {
+    left: 150%;
+  }
+}
+
+@keyframes anvHeaderEnter {
+  from {
+    opacity: 0;
+    transform: translateY(-12px) perspective(1000px) rotateX(-2deg);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) perspective(1000px) rotateX(0deg);
+  }
+}
+
+@keyframes anvCardEnter {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes anvFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes anvNumberEnter {
+  from {
+    opacity: 0.3;
+    transform: translateY(5px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes anvToastIn {
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
+/* =====================================================
+   RESPONSIVE — TABLETS
+   ===================================================== */
+
+@media (max-width: 900px) {
+  .anv-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .anv-card {
+    padding: 16px;
+  }
+
+  .anv-header {
+    padding: 23px 20px;
+  }
+}
+
+/* =====================================================
+   RESPONSIVE — MOBILE
+   ===================================================== */
+
+@media (max-width: 600px) {
+  body {
+    font-size: 14px;
+  }
+
+  .anv-header {
+    margin-top: 8px;
+    padding: 21px 17px;
+    border-radius: 19px;
+  }
+
+  .anv-header h1 {
+    font-size: 23px;
+  }
+
+  .anv-nav {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+    padding: 8px;
+    border-radius: 15px;
+  }
+
+  .anv-nav button {
+    width: 100%;
+    min-width: 0;
+    padding: 11px 7px;
+    text-align: center;
+  }
+
+  .anv-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .anv-stat {
+    min-height: 112px;
+    padding: 15px 13px;
+    border-radius: 15px;
+  }
+
+  .anv-stat strong {
+    font-size: 23px;
+  }
+
+  .anv-card {
+    padding: 14px;
+    margin-bottom: 13px;
+    border-radius: 16px;
+  }
+
+  .anv-card h3 {
+    font-size: 16px;
+  }
+
+  .anv-form {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 13px;
+  }
+
+  .anv-row {
+    align-items: stretch;
+    gap: 9px;
+  }
+
+  .anv-row > input {
+    flex-basis: 100%;
+  }
+
+  .anv-row > button {
+    flex: 1 1 auto;
+  }
+
+  #anvJsApp > h2,
+  #app > h2 {
+    font-size: 22px;
+  }
+
+  #anvJsApp th,
+  #anvJsApp td,
+  #app th,
+  #app td {
+    padding: 11px 9px;
+  }
+}
+
+/* =====================================================
+   SMALL MOBILE DEVICES
+   ===================================================== */
+
+@media (max-width: 360px) {
+  .anv-stats {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .anv-nav {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .anv-row > button {
+    flex-basis: 100%;
+  }
+}
+
+/* =====================================================
+   REDUCED MOTION ACCESSIBILITY
+   ===================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .anv-card:hover,
+  .anv-nav button:hover,
+  #anvJsApp button:hover,
+  #app button:hover {
+    transform: none;
+  }
+}
+
+/* =====================================================
+   PRINT MODE
+   ===================================================== */
+
+@media print {
+  body {
+    background: #fff !important;
+    color: #000 !important;
+  }
+
+  #loadingScreen,
+  .anv-nav,
+  #anvNotice,
+  #anvJsApp button,
+  #app button {
+    display: none !important;
+  }
+
+  .anv-header,
+  .anv-card {
+    color: #000 !important;
+    background: #fff !important;
+    border: 1px solid #ccc !important;
+    box-shadow: none !important;
+    transform: none !important;
+    animation: none !important;
+  }
+
+  .anv-header h1,
+  .anv-header p,
+  .anv-card h3 {
+    color: #000 !important;
+  }
+
+  .anv-table-wrap {
+    overflow: visible !important;
+    border: 0 !important;
+  }
+
+  #anvJsApp th,
+  #anvJsApp td,
+  #app th,
+  #app td {
+    color: #000 !important;
+    background: #fff !important;
+  }
+}

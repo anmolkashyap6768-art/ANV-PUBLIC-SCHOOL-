@@ -1,0 +1,189 @@
+
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ANV Public School | Management System</title>
+  <meta name="theme-color" content="#101c3a">
+  <style>
+    :root {
+      --navy: #101c3a;
+      --blue: #315cf5;
+      --light: #f2f5ff;
+      --text: #18233f;
+      --muted: #6b7690;
+      --border: #e2e8f5;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; background: var(--light); color: var(--text);
+      font-family: Arial, Helvetica, sans-serif;
+    }
+    button, input, select, textarea { font: inherit; }
+    button { cursor: pointer; }
+    .topbar {
+      background: linear-gradient(120deg,#101c3a,#263f82);
+      color: white; padding: 18px 16px;
+      box-shadow: 0 8px 24px #101c3a25;
+    }
+    .brand { display:flex; align-items:center; gap:12px; }
+    .logo {
+      width:48px; height:48px; border-radius:15px;
+      display:grid; place-items:center; font-size:25px;
+      background:linear-gradient(145deg,#fff,#cdd9ff);
+      color:#243b82; box-shadow:5px 5px 12px #0003;
+    }
+    .brand h1 { font-size:20px; margin:0 0 5px; }
+    .brand p { margin:0; color:#dce5ff; font-size:12px; }
+    .layout { display:flex; max-width:1400px; margin:auto; }
+    .sidebar {
+      width:235px; flex-shrink:0; padding:18px 12px;
+    }
+    .nav-btn {
+      display:flex; width:100%; gap:10px; align-items:center;
+      text-align:left; margin-bottom:8px; padding:13px;
+      color:#354361; background:white; border:1px solid var(--border);
+      border-radius:13px; font-weight:700;
+      transition:.2s; box-shadow:0 3px 8px #15264b06;
+    }
+    .nav-btn:hover { transform:translateX(3px); }
+    .nav-btn.active {
+      color:white; border-color:transparent;
+      background:linear-gradient(120deg,#315cf5,#6949e8);
+      box-shadow:0 8px 18px #315cf535;
+    }
+    main { min-width:0; flex:1; padding:20px 18px 40px; }
+    .page-heading {
+      display:flex; flex-wrap:wrap; align-items:center;
+      justify-content:space-between; gap:12px; margin-bottom:18px;
+    }
+    .page-heading h2 { margin:0 0 5px; font-size:24px; }
+    .muted { color:var(--muted); font-size:13px; }
+    .btn {
+      border:0; border-radius:10px; padding:11px 15px;
+      background:var(--blue); color:white; font-weight:700;
+      box-shadow:0 5px 12px #315cf525;
+    }
+    .btn:hover { filter:brightness(1.06); transform:translateY(-1px); }
+    .btn.secondary { background:#e8edff; color:#2945a3; box-shadow:none; }
+    .btn.danger { background:#c6374a; box-shadow:none; }
+    .btn.success { background:#16835e; }
+    .btn.small { padding:8px 10px; font-size:12px; margin:2px; }
+    .cards {
+      display:grid; grid-template-columns:repeat(4,minmax(0,1fr));
+      gap:14px; margin-bottom:18px;
+    }
+    .card {
+      background:white; padding:18px; border:1px solid var(--border);
+      border-radius:17px; box-shadow:0 8px 20px #14275308;
+      animation:rise .3s ease both;
+    }
+    .stat { position:relative; overflow:hidden; }
+    .stat:after {
+      content:""; position:absolute; width:85px; height:85px;
+      right:-25px; top:-30px; border-radius:50%;
+      background:#4c6fff12;
+    }
+    .stat .icon { font-size:24px; }
+    .stat strong { display:block; font-size:27px; margin:13px 0 5px; }
+    .stat span { color:var(--muted); font-size:13px; }
+    .panel {
+      background:white; border:1px solid var(--border);
+      border-radius:16px; padding:18px; margin-bottom:16px;
+      box-shadow:0 6px 18px #14275306;
+    }
+    .panel h3 { margin:0 0 14px; font-size:17px; }
+    .toolbar {
+      display:flex; flex-wrap:wrap; gap:9px;
+      justify-content:space-between; margin-bottom:13px;
+    }
+    .toolbar input { flex:1; min-width:150px; }
+    input, select, textarea {
+      width:100%; padding:12px; border:1px solid #dce3f2;
+      border-radius:10px; background:white; color:var(--text);
+      outline:none; min-width:0;
+    }
+    input:focus, select:focus, textarea:focus {
+      border-color:var(--blue); box-shadow:0 0 0 3px #315cf516;
+    }
+    label { display:block; font-size:13px; font-weight:700; margin-bottom:6px; }
+    .field { margin-bottom:14px; min-width:0; }
+    .form-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; }
+    .form-actions { display:flex; flex-wrap:wrap; gap:9px; margin-top:8px; }
+    .table-wrap { overflow-x:auto; }
+    table { width:100%; border-collapse:collapse; min-width:580px; }
+    th, td { text-align:left; padding:12px 10px; border-bottom:1px solid #edf0f7; font-size:13px; }
+    th { background:#f6f8ff; color:#5c6883; }
+    tr:last-child td { border-bottom:0; }
+    .badge {
+      display:inline-block; padding:5px 9px; border-radius:20px;
+      background:#e8edff; color:#2945a3; font-size:11px; font-weight:700;
+    }
+    .empty { padding:24px; text-align:center; color:var(--muted); }
+    .back-row { margin-bottom:14px; }
+    .profile-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; }
+    .profile-item { background:#f7f9ff; padding:13px; border-radius:10px; overflow-wrap:anywhere; }
+    .profile-item small { display:block; color:var(--muted); margin-bottom:5px; }
+    .notice { padding:12px; background:#fff7df; border-radius:10px; font-size:12px; color:#745400; margin-bottom:14px; }
+    .mobile-nav { display:none; }
+    .footer { text-align:center; padding:20px 8px; color:var(--muted); font-size:12px; }
+    @keyframes rise { from {opacity:0; transform:translateY(7px)} to {opacity:1; transform:translateY(0)} }
+    @media(max-width:900px) {
+      .cards { grid-template-columns:repeat(2,minmax(0,1fr)); }
+      .sidebar { width:195px; }
+    }
+    @media(max-width:620px) {
+      .layout { display:block; }
+      .sidebar { display:none; }
+      main { padding:16px 12px 30px; }
+      .topbar { padding:15px 12px; }
+      .brand h1 { font-size:18px; }
+      .page-heading h2 { font-size:21px; }
+      .mobile-nav {
+        display:flex; overflow-x:auto; gap:8px; padding:10px;
+        background:white; border-bottom:1px solid var(--border);
+      }
+      .mobile-nav .nav-btn {
+        width:auto; min-width:max-content; margin:0;
+        padding:10px 12px; font-size:12px;
+      }
+      .form-grid, .profile-grid { grid-template-columns:1fr; }
+      .card { padding:14px; }
+      .stat strong { font-size:23px; }
+    }
+    @media print {
+      body { background:white; }
+      .topbar, .sidebar, .mobile-nav, .no-print, .footer { display:none !important; }
+      main { padding:0; }
+      .panel, .card { box-shadow:none; border:1px solid #ddd; break-inside:avoid; }
+      .cards { grid-template-columns:repeat(2,1fr); }
+      table { min-width:0; }
+      th, td { font-size:11px; padding:7px 5px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <div class="logo">🎓</div>
+      <div>
+        <h1>ANV Public School</h1>
+        <p>School Management System</p>
+      </div>
+    </div>
+  </header>
+
+  <nav class="mobile-nav no-print" id="mobileNav"></nav>
+
+  <div class="layout">
+    <aside class="sidebar no-print" id="sideNav"></aside>
+    <main id="app" aria-live="polite">
+      <div class="panel">ANV School System लोड हो रहा है...</div>
+    </main>
+  </div>
+
+  <footer class="footer">ANV Public School · School Management System</footer>
+  <script src="script.js" defer></script>
+</body>
+</html>
