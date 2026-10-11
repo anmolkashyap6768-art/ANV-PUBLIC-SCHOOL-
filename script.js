@@ -102,13 +102,75 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Basic admission form validation
-  // This demo does NOT send data to the school.
-  if (admissionForm && formMessage) {
-    admissionForm.addEventListener("submit", (event) => {
-      event.preventDefault();
+  
+// WhatsApp Admission Form - ANV Public School
+const admissionForm = document.getElementById("admissionForm");
+const formMessage = document.getElementById("formMessage");
 
-      if (!admissionForm.reportValidity()) return;
+const schoolWhatsAppNumber = "919927440269";
+
+if (admissionForm) {
+  admissionForm.addEventListener("submit", function (event) {
+    event.preventDefault();
+
+    if (!admissionForm.reportValidity()) {
+      return;
+    }
+
+    const studentName = document
+      .getElementById("studentName").value.trim();
+
+    const parentName = document
+      .getElementById("parentName").value.trim();
+
+    const className = document
+      .getElementById("classSelect").value;
+
+    const phone = document
+      .getElementById("phoneNumber").value.trim();
+
+    if (!studentName || !parentName || !className) {
+      if (formMessage) {
+        formMessage.textContent =
+          "कृपया सभी जरूरी जानकारी भरें।";
+      }
+      return;
+    }
+
+    if (!/^[0-9]{10}$/.test(phone)) {
+      if (formMessage) {
+        formMessage.textContent =
+          "कृपया 10 अंकों का सही मोबाइल नंबर भरें।";
+      }
+      return;
+    }
+
+    const message =
+`🎓 *ANV PUBLIC SCHOOL*
+📋 *Admission Enquiry*
+
+👦 Student Name: ${studentName}
+👨‍👩‍👧 Parent Name: ${parentName}
+📚 Admission Class: ${className}
+📱 Parent Mobile: ${phone}
+
+📍 School: Nagaliya Mev, Gajraula, Amroha, UP
+
+Please contact me regarding the admission process.
+Thank you!`;
+
+    const whatsappURL =
+      "https://wa.me/" + schoolWhatsAppNumber +
+      "?text=" + encodeURIComponent(message);
+
+    if (formMessage) {
+      formMessage.textContent =
+        "WhatsApp खुल रहा है। कृपया message चेक करके Send दबाएँ।";
+    }
+
+    window.open(whatsappURL, "_blank", "noopener,noreferrer");
+  });
+}
 
       const studentName = document
         .getElementById("studentName")
